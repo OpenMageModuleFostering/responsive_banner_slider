@@ -1,17 +1,13 @@
 <?php
-
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 
-class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid extends Mage_Adminhtml_Block_Widget_Grid
-{
-	public function __construct()
-	{
+class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid extends Mage_Adminhtml_Block_Widget_Grid {
+	public function __construct(){
 		parent::__construct();
 		$this->setId('sliderGrid');
 		$this->setDefaultSort('slide_id');
@@ -20,27 +16,20 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid ex
 		$this->setUseAjax(true);
 	}
 
-	protected function _prepareCollection()
-	{
+	protected function _prepareCollection(){
 		$collection = Mage::getModel('responsivebannerslider/slide')->getCollection();
 		$groupId = (int) $this->getRequest()->getParam('group');
-		 
 		if($groupId != 0) {
 			$collection->addFieldToFilter('group_names', array(array('finset' => $groupId)));  
 		}
-			
 		$this->setCollection($collection);
-	
-      return parent::_prepareCollection();
+	    return parent::_prepareCollection();
     }
-
-  
 	protected function Groupsid() {
 		$groups = Mage::getModel('responsivebannerslider/responsivebannerslider')->getCollection();
 		foreach($groups as $group) {
 			$options[$group->getData('slidergroup_id')] = $group->getTitle();
 		}
-			
 		return $options;
 	}
  
@@ -52,13 +41,11 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid ex
 			'width'     => '50px',
 			'index'     => 'slide_id',
 		));
-
 		$this->addColumn('titles', array(
 			'header'    => Mage::helper('responsivebannerslider')->__('Slide Title'),
 			'align'     =>'left',
 			'index'     => 'titles',
 		));
-
 		$this->addColumn('Group', array(
 			'header'    => Mage::helper('responsivebannerslider')->__('Group'),
 			'align'     =>'left',
@@ -66,14 +53,12 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid ex
 			'renderer'  => 'CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Renderer_Groups',
 			'filter' => false,		  
 		));
-
 		$this->addColumn('sort_order', array(
 			'header'    => Mage::helper('responsivebannerslider')->__('Sort Order'),
 			'align'     =>'left',
 			'index'     => 'sort_order',
 			'width'     => '80px',
 		));
-		
 		$this->addColumn('statuss', array(
 			'header'    => Mage::helper('responsivebannerslider')->__('Status'),
 			'align'     => 'left',
@@ -85,8 +70,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid ex
 				0 => 'Disabled',
 			),
 		));
-	  
-        $this->addColumn('action',
+	    $this->addColumn('action',
             array(
                 'header'    =>  Mage::helper('responsivebannerslider')->__('Action'),
                 'width'     => '100',
@@ -108,19 +92,15 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid ex
 	  return parent::_prepareColumns();
 	}
 
-    protected function _prepareMassaction()
-    {
+    protected function _prepareMassaction()   {
         $this->setMassactionIdField('slide_id');
         $this->getMassactionBlock()->setFormFieldName('responsivebannerslider_slide');
-
         $this->getMassactionBlock()->addItem('delete', array(
              'label'    => Mage::helper('responsivebannerslider')->__('Delete'),
              'url'      => $this->getUrl('*/*/massDelete'),
              'confirm'  => Mage::helper('responsivebannerslider')->__('Are you sure?')
         ));
-
         $statuses = Mage::getSingleton('responsivebannerslider/status')->getOptionArray();
-
         array_unshift($statuses, array('label'=>'', 'value'=>''));
         $this->getMassactionBlock()->addItem('status', array(
              'label'=> Mage::helper('responsivebannerslider')->__('Change status'),
@@ -139,13 +119,10 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Grid ex
     }
 
 	public function getRowUrl($row) {
-      
 		return $this->getUrl('*/*/edit', array('id' => $row->getId()));
 	}
 	
-	public function getGridUrl()
-    {
+	public function getGridUrl() {
          return  $this->getUrl('*/*/grid', array('_current' => true));
     }
-	
 }

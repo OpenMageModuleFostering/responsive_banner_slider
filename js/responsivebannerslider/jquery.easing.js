@@ -1,11 +1,3 @@
-/***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
-
 jQuery.easing['jswing'] = jQuery.easing['swing'];
 
 jQuery.extend( jQuery.easing,

@@ -1,31 +1,16 @@
 <?xml version="1.0"?>
-
-<!-- 
-/***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
--->
-
 <layout version="0.1.0">
-   
-
-    <responsivebannerslider_adminhtml_slidergroup_index>
+    <adminhtml_slidergroup_index>
 	    <reference name="content">
-			<block type="responsivebannerslider/adminhtml_slidergroup" name="store_switcher" template="responsivebannerslider/store.phtml" />
- 		    <block type="responsivebannerslider/adminhtml_slidergroup"  name="slidergroup" />
+		    <block type="responsivebannerslider/adminhtml_slidergroup"  name="slidergroup" />
         </reference>
-    </responsivebannerslider_adminhtml_slidergroup_index>
-	 <responsivebannerslider_adminhtml_slidergroup_edit>
+    </adminhtml_slidergroup_index>
+	<adminhtml_slidergroup_edit>
 			<reference name="head">
 			<action method="addJs"><script>responsivebannerslider/jscolor/jscolor.js</script></action>	
 			<action method="addJs"><script>responsivebannerslider/product-selector.js</script></action>
 			<action method="addCss"><stylesheet>responsivebannerslider/responsivebannerslider.css</stylesheet></action> 
-		
-            <action method="setCanLoadExtJs"><flag>1</flag></action>
+		    <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="addJs"><script>lib/flex.js</script></action>
             <action method="addJs"><script>lib/FABridge.js</script></action>
             <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
@@ -33,21 +18,17 @@
             <action method="addJs"><script>prototype/window.js</script></action>
             <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
             <action method="addCss"><stylesheet>lib/prototype/windows/themes/magento.css</stylesheet></action>
-            
         </reference>
-      
-    </responsivebannerslider_adminhtml_slidergroup_edit>
-	<responsivebannerslider_adminhtml_slider_index>
+    </adminhtml_slidergroup_edit>
+	<adminhtml_slider_index>
 	    <reference name="content">
           	<block type="responsivebannerslider/adminhtml_slidergroup" name="group_switcher" template="responsivebannerslider/group.phtml" />
 			<block type="responsivebannerslider/adminhtml_slider" name="slider" />
 		</reference>
-	</responsivebannerslider_adminhtml_slider_index>
-	
-	<responsivebannerslider_adminhtml_slidergroup_categories>
+	</adminhtml_slider_index>
+	<adminhtml_slidergroup_categories>
 		<block type="core/text_list" name="root" output="toHtml">
 			<block type="responsivebannerslider/adminhtml_slidergroup_edit_tab_categories" name="category.edit.tab.categories"/>
-		</block>
-	</responsivebannerslider_adminhtml_slidergroup_categories>
-	
+			</block>
+	</adminhtml_slidergroup_categories>
 </layout>

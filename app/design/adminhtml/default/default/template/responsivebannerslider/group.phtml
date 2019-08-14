@@ -1,18 +1,14 @@
 <?php
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 ?> 
-
 <?php if(count($this->getGroupData()) > 1) { ?>
-
 <?php $url = Mage::helper('adminhtml')->getUrl('responsivebannerslider/adminhtml_slider/index'); ?>
 <?php $group_id = $this->getRequest()->getParam('group'); ?>
-
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Slider Group:') ?></label>
 	<select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">
 		 <option value="0"><?php echo $this->__('Show All Slider Group'); ?></option>
@@ -23,22 +19,16 @@
 			<?php }else{?>
 				<option value="<?php echo $key; ?>"><?php echo $value; ?></option>
 			<?php }	?>
-				
 		<?php }?>
-		
 	</select>
-
 </p>
-
 <script type="text/javascript">
     function switchStore(obj) {
         var storeParam = obj.value ? 'group/' + obj.value + '/' : '';
         if (obj.switchParams) {
             storeParam += obj.switchParams;
         }
-    
         setLocation('<?php echo $url ?>' + storeParam);
-   
     }
 </script> 
 <?php }?>

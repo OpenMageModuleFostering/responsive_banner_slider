@@ -1,29 +1,22 @@
 <?php
-
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 
-class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form
-{
+class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Tab_Form extends Mage_Adminhtml_Block_Widget_Form {
 
     protected function Groupsid() {
 		$groups = Mage::getModel('responsivebannerslider/responsivebannerslider')->getCollection()->setOrder('slidergroup_id', 'ASC');
 
 		foreach($groups as $group) {
-		
 			$data = array(
 				'value' => $group->getData('slidergroup_id'),
 				'label' => $group->getTitle());
-				
 			$options[] = $data;		
-			
 		}
-
 		return $options;
 	}
   
@@ -35,108 +28,89 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
 		}
 	}
 
-	protected function _prepareForm()
-	{
+	protected function _prepareForm() {
 		$form = new Varien_Data_Form();
 		$this->setForm($form);
 		$fieldset = $form->addFieldset('slider_form', array('legend'=>Mage::helper('responsivebannerslider')->__('General information')));
-     
-		$group_name = $fieldset->addField('group_names', 'multiselect', array(
+     	$group_name = $fieldset->addField('group_names', 'multiselect', array(
 			'label'     => Mage::helper('responsivebannerslider')->__('Group'),
 			'class'     => 'required-entry',
 			'required'  => true,
 			'name'      => 'group_names[]',
 			'values'    => $this->Groupsid(),
 		));
-	 
-	 
 		$title = $fieldset->addField('titles', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Title'),
 			'class'     => 'required-entry',
 			'required'  => true,
 			'name'      => 'titles',
 		));
-		  
 		$img_video = $fieldset->addField('img_video', 'select', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Image or Video'),
 			'name'      => 'img_video',
 			'disabled' 	=> $this->_sliderAdd(),
 			'values'    => Mage::getSingleton('responsivebannerslider/config_source_video')->toOptionArray(),
 		));
-		 
 		$img_hosting = $fieldset->addField('img_hosting', 'select', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Use External Image Hosting'),
 			'name'      => 'img_hosting',
 			'values'    => Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray(),
 		));
-		
 		$video_height = $fieldset->addField('video_height', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Height of Video'),
 			'name'      => 'video_height',
 			'class'     => 'validate-number',
 			'required'  => true,
 	    ));
-		  
 		$video_id = $fieldset->addField('video_id', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Video ID'),
 			'name'      => 'video_id',
 			'note' => 'enter the video id of your YouTube or Vimeo video (not the full link)',
 
 	    ));	  
-		  
 		$hosted_url = $fieldset->addField('hosted_url', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Hosted Image URL'),
 			'name'      => 'hosted_url',
 			'note'		=> "Ex - http://example.com/filename",
 		));
-		  
 		$hosted_thumb = $fieldset->addField('hosted_thumb', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Hosted Image Thumb URL'),
 			'name'      => 'hosted_thumb',
 			'note'	=> 'you can use the same URL as above but for performance reasons it\'s better to upload a seperate small thumbnail of this image, the thumbnails are used in carousels',
 		));
-		  
 		$filename = $fieldset->addField('filename', 'image', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Image'),
 			'required'  => false,
 			'name'      => 'filename',
 			
 		));
-		  
 	    $alt_text = $fieldset->addField('alt_text', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('ALT Text'),
 			'name'      => 'alt_text',
 		));
-	  
 	    $url = $fieldset->addField('url', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('URL'),
 			'name'      => 'url',
 		));
-	  
 	    $url_target = $fieldset->addField('url_target', 'select', array(
 			'label'     => Mage::helper('responsivebannerslider')->__('URL Target'),
 			'name'      => 'url_target',
 			'values'    => Mage::getSingleton('responsivebannerslider/config_source_urltarget')->toOptionArray(),
 		));
-	 	 
-		
-			$wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
+	 	$wysiwygConfig = Mage::getSingleton('cms/wysiwyg_config')->getConfig(
 				array('tab_id' => $this->getTabId())
 			);
-
-			$wysiwygConfig["files_browser_window_url"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg_images/index');
-			$wysiwygConfig["directives_url"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg/directive');
-			$wysiwygConfig["directives_url_quoted"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg/directive');
-			$wysiwygConfig["add_images"] = false;
-			$wysiwygConfig["add_widgets"] = false;
-			$wysiwygConfig["add_variables"] = false;
-			$wysiwygConfig["widget_plugin_src"] = false;
-			$wysiwygConfig->setData("plugins",array());
-				
-				$style = 'height:20em; width:50em;';
-			$config = $wysiwygConfig;
+		$wysiwygConfig["files_browser_window_url"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg_images/index');
+		$wysiwygConfig["directives_url"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg/directive');
+		$wysiwygConfig["directives_url_quoted"] = Mage::getSingleton('adminhtml/url')->getUrl('adminhtml/cms_wysiwyg/directive');
+		$wysiwygConfig["add_images"] = false;
+		$wysiwygConfig["add_widgets"] = false;
+		$wysiwygConfig["add_variables"] = false;
+		$wysiwygConfig["widget_plugin_src"] = false;
+		$wysiwygConfig->setData("plugins",array());
+		$style = 'height:20em; width:50em;';
+		$config = $wysiwygConfig;
 			
-		
 		$description = $fieldset->addField('description','editor',array(
 			'label' => Mage::helper('responsivebannerslider')->__('Description'),
 			'required' => false,
@@ -145,8 +119,6 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
 			'wysiwyg' => true,
 			'config' => $config,
 		));
-		
-		
 		$date_enabled = $fieldset->addField('date_enabled', 'select', array(
             'label'     => Mage::helper('responsivebannerslider')->__('Use Date Range'),
             'name'      => 'date_enabled',
@@ -155,12 +127,9 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
                 1 => Mage::helper('responsivebannerslider')->__('Yes'), 
              ),
         ));
-		
 		$note= $this->__('The current server time is').': '.$this->formatTime(now(),Mage_Core_Model_Locale::FORMAT_TYPE_SHORT,true);
-		
 		$current_timezone = Mage::app()->getStore()->getConfig('general/locale/timezone');
 		$dateFormatIso = Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT);
-        
         $from_date = $fieldset->addField('from_date', 'date', array(
             'name' => 'from_date',
             'label' => Mage::helper('responsivebannerslider')->__('From Date & Time'),
@@ -171,7 +140,6 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
             'input_format' => Varien_Date::DATETIME_INTERNAL_FORMAT,
             'format' => $dateFormatIso
         ));
-		
 		$to_date = $fieldset->addField('to_date', 'date', array(
             'name' => 'to_date',
             'label' => Mage::helper('responsivebannerslider')->__('To Date & Time'),
@@ -183,39 +151,30 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
             'format' => $dateFormatIso,
 			'note'      =>$note,
         ));
-	  
 	    $sort_order = $fieldset->addField('sort_order', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Sort Order'),
 			'class'     => 'validate-number',
 			'required'  => false,
 			'name'      => 'sort_order',
 		)); 
-	
-       $status = $fieldset->addField('statuss', 'select', array(
+	    $status = $fieldset->addField('statuss', 'select', array(
 			'label'     => Mage::helper('responsivebannerslider')->__('Status'),
 			'name'      => 'statuss',
 			'values'    => Mage::getSingleton('responsivebannerslider/config_source_status')->toOptionArray(),
 		)); 
-	   
-        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+	    if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
 			$this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
-			
 		}  
 	
         if (Mage::getSingleton('adminhtml/session')->getSliderData()) {
             $form->setValues(Mage::getSingleton('adminhtml/session')->getSliderData());
             Mage::getSingleton('adminhtml/session')->setSliderData(null);
         } elseif (Mage::registry('slider_data')) {
-			
 			$dataimg = Mage::registry('slider_data')->getData();
-			
 			if(count($dataimg)>0) {
-			
 				$tmp = "responsivebannerslider/".$dataimg['filename'];
 				unset($dataimg['filename']);
 				$dataimg = array_merge($dataimg, array("filename"=>$tmp));
-				
-	     
 				if($dataimg['filename'] == "responsivebannerslider/"){
 					unset($dataimg['filename']);
 					array_merge($dataimg, array("filename"=>""));
@@ -232,8 +191,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
 			$form->setValues($dataimg);
 			$this->setForm($form);
 		}
-	 
-        $this->setForm($form);
+	    $this->setForm($form);
         $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
             ->addFieldMap($img_video->getHtmlId(), $img_video->getName())
             ->addFieldMap($img_hosting->getHtmlId(), $img_hosting->getName())
@@ -324,9 +282,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
                 $img_hosting->getName(),
                 0
             )
-		
-        );	 
-		 		 
-      return parent::_prepareForm();
+		);	 
+	    return parent::_prepareForm();
     }
 }

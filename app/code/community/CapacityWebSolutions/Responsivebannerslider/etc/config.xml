@@ -1,18 +1,8 @@
 <?xml version="1.0"?>
-<!--
-/***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
--->
-
 <config>
     <modules>
         <CapacityWebSolutions_Responsivebannerslider>
-            <version>1.0.3</version>
+            <version>1.0.4</version>
         </CapacityWebSolutions_Responsivebannerslider>
     </modules>
      <frontend>
@@ -32,60 +22,44 @@
                 </responsivebannerslider>
             </updates>
         </layout>
-		
-		 <events>
-            <core_block_abstract_prepare_layout_before>
-                <observers>
-                    <capacityWebSolutions_responsivebannerslider_prepare_layout_before>
-                        <class>responsivebannerslider/observer</class>
-                        <method>prepareLayoutBefore</method>
-                    </capacityWebSolutions_responsivebannerslider_prepare_layout_before>
-                </observers>
-            </core_block_abstract_prepare_layout_before>
-        </events>
-		
-    </frontend> 
-    <admin>
-        <routers>
-			<responsivebannerslider>
-				<use>admin</use>
+	</frontend> 
+  	<admin>
+		<routers>
+			<adminhtml>
 				<args>
-					<module>CapacityWebSolutions_Responsivebannerslider</module>
-					<frontName>responsivebannerslider</frontName>
+					<modules>
+						<responsivebannerslider after="Mage_Adminhtml">CapacityWebSolutions_Responsivebannerslider_Adminhtml</responsivebannerslider>
+					</modules>
 				</args>
-			</responsivebannerslider>
-        </routers>
-    </admin>
+			</adminhtml>
+		</routers>        
+	</admin>
 	
-    <adminhtml>
+	<adminhtml>
 		<menu>
 			<cws module="responsivebannerslider">
-			<title>CWS Extensions</title>
+			<title>MageBees</title>
 			<sort_order>70</sort_order> 
 				<children>
 					<responsivebannerslider module="responsivebannerslider">
 						<title>Responsive Banner Slider</title>
 						<sort_order>70</sort_order>     
-					
 						<children>
 							<group module="responsivebannerslider">
 								<title>Manage Groups</title>
 								<sort_order>0</sort_order>
-								<action>responsivebannerslider/adminhtml_slidergroup</action>
-								
+								<action>adminhtml/slidergroup</action>
 							</group>
 							<slides module="responsivebannerslider">
 								<title>Manage Slides</title>
 								<sort_order>10</sort_order>
-								<action>responsivebannerslider/adminhtml_slider</action>
+								<action>adminhtml/slider</action>
 							</slides>
-							
 							<settings module="responsivebannerslider">
 								<title>Settings</title>
 								<sort_order>20</sort_order>
 								<action>adminhtml/system_config/edit/section/responsivebannerslider</action> 
 							</settings>
-							
 						</children>
 					</responsivebannerslider>
 				</children>
@@ -99,7 +73,7 @@
 				<admin>
 					<children>
 						<cws module="responsivebannerslider">
-						<title>CWS Extensions</title>
+						<title>MageBees</title>
 							<children>
 								<responsivebannerslider module="responsivebannerslider">
 									<title>Responsive Banner Slider</title>
@@ -117,7 +91,6 @@
 							</children>
 						</cws>
 					</children>
-					
 				</admin>
 			</resources>
 		</acl>
@@ -128,7 +101,6 @@
 				</responsivebannerslider>
 			</updates>
 		</layout>
-		
 		<acl>
 			<resources>
 				<admin>
@@ -161,8 +133,7 @@
         </events>
     </adminhtml>   
     <global>
-	
-        <models>
+	    <models>
             <responsivebannerslider>
                 <class>CapacityWebSolutions_Responsivebannerslider_Model</class>
                 <resourceModel>responsivebannerslider_mysql4</resourceModel>
@@ -221,9 +192,7 @@
                 <class>CapacityWebSolutions_Responsivebannerslider_Helper</class>
             </responsivebannerslider>
         </helpers>
-				
-    </global>
-	
+	</global>
 	<default> 
 		<responsivebannerslider>
 			<general>  
@@ -236,5 +205,4 @@
 			</general>      
 		</responsivebannerslider>
 	</default>	
-		
 </config>

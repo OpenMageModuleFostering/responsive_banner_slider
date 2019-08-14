@@ -1,14 +1,12 @@
 <?php
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 
-class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
-{
+class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Form extends Mage_Adminhtml_Block_Widget_Form{
 	protected function _prepareForm()
 	{
 		$form = new Varien_Data_Form(array(
@@ -18,7 +16,6 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Fo
         			'enctype' => 'multipart/form-data'
                 )
 		);
-
        $form->setUseContainer(true);
        $this->setForm($form);
        return parent::_prepareForm();

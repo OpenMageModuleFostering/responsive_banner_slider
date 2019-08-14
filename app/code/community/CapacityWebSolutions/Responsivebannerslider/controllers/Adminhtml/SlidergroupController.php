@@ -1,11 +1,10 @@
 <?php
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 
 class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupController extends Mage_Adminhtml_Controller_Action {
 
@@ -13,7 +12,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 		$this->loadLayout()
 			->_setActiveMenu('cws')
 			->_addBreadcrumb(Mage::helper('adminhtml')->__('Responsive Banner Slider'), Mage::helper('adminhtml')->__('Responsive Banner Slider'));
-
 		return $this;
 	}   
  
@@ -22,37 +20,27 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 			->renderLayout();
 	}
 	
-	public function gridAction()
-    {
+	public function gridAction() {
         $this->loadLayout();
         $this->getResponse()->setBody(
                $this->getLayout()->createBlock('responsivebannerslider/adminhtml_slidergroup_grid')->toHtml()
         );
     }
-    
-
-	public function editAction() {
+    public function editAction() {
 		$id = $this->getRequest()->getParam('id');
 		$model  = Mage::getModel('responsivebannerslider/responsivebannerslider')->load($id);
-
 		if ($model->getId() || $id == 0) {
 			$data = Mage::getSingleton('adminhtml/session')->getFormData(true);
 			if (!empty($data)) {
 				$model->setData($data);
 			}
-
 			Mage::register('slidergroup_data', $model);
-
 			$this->loadLayout();
 			$this->_setActiveMenu('cws');
-
 			$this->_addBreadcrumb(Mage::helper('adminhtml')->__('Slider Group Manager'), Mage::helper('adminhtml')->__('Slider Group Manager'));
-			
 			$this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
-
 			$this->_addContent($this->getLayout()->createBlock('responsivebannerslider/adminhtml_slidergroup_edit'))
 				->_addLeft($this->getLayout()->createBlock('responsivebannerslider/adminhtml_slidergroup_edit_tabs'));
-
 			$this->renderLayout();
 		} else {
 			Mage::getSingleton('adminhtml/session')->addError(Mage::helper('responsivebannerslider')->__('Item does not exist'));
@@ -66,26 +54,21 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
  
 	public function saveAction() {
 		if ($data = $this->getRequest()->getPost()) {
-			
 			$dataid = $this->getRequest()->getParam('id');	
-						
 			if (isset($data['category_ids'])) {
 				$data['category_ids'] = explode(',',$data['category_ids']);
 				if (is_array($data['category_ids'])) {
 					$data['category_ids'] = array_unique($data['category_ids']);
 				}
 			}
-			
 			if (isset($data['product_sku'])) {
 				$data['product_sku'] = explode(', ',$data['product_sku']);
 				if (is_array($data['product_sku'])) {
 					$data['product_sku'] = array_unique($data['product_sku']);
 				}
 			}
-
-			$model = Mage::getModel('responsivebannerslider/responsivebannerslider');		
-			$model->setData($data)
-				->setId($this->getRequest()->getParam('id'));
+			$model = Mage::getModel('responsivebannerslider/responsivebannerslider');	
+			$model->setData($data)->setId($this->getRequest()->getParam('id'));
 			
 			try {
 				if ($model->getCreatedTime == NULL || $model->getUpdateTime() == NULL) {
@@ -94,9 +77,7 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 				} else {
 					$model->setUpdateTime(now());
 				}	
-											
 				$model->save();
-			
 				$store_model = Mage::getModel('responsivebannerslider/store');	
 				if($dataid != "") {			
 					$store_data = $store_model->getCollection()
@@ -109,16 +90,13 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 					$store_model->setData($data_store);
 					$store_model->save();
 				} 	
-					
 				$page_model = Mage::getModel('responsivebannerslider/page');
 				if($dataid != "") {			
 					$page_data = $page_model->getCollection()
 									->addFieldToFilter('slidergroup_id',$dataid); 
 					$page_data->walk('delete');  
 				}
-
-            	$cmspages = $model->getData('pages');
-				
+				$cmspages = $model->getData('pages');
 				if(isset($cmspages)) {
 					if(count($model->getData('pages') > 0)) {
 						foreach($model->getData('pages') as $pages)	{
@@ -127,7 +105,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 							$page_model->setData($data_page);
 							$page_model->save();
 						} 
-					
 					}
 				}
 				$cate_model = Mage::getModel('responsivebannerslider/categories');
@@ -144,7 +121,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 						$cate_model->save();
 					}
 				} 
-				
 				$product_model = Mage::getModel('responsivebannerslider/product');
 				if($dataid != "") {			
 					$prd_data = $product_model->getCollection()
@@ -154,7 +130,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 				foreach($model->getData('product_sku') as $product)	{
 					$data_prd['slidergroup_id'] = $model->getData('slidergroup_id');
 					$data_prd['product_sku'] = $product;
-						
 					$product_model->setData($data_prd);
 					$product_model->save();
 				} 
@@ -171,10 +146,8 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 				$path .= "group-".$group_id.".css";
 				$css = $this->get_menu_css($group_id);
 				file_put_contents($path,$css);
-				
 				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('responsivebannerslider')->__('Group was successfully saved'));
 				Mage::getSingleton('adminhtml/session')->setFormData(false);
-
 				if ($this->getRequest()->getParam('back')) {
 					$this->_redirect('*/*/edit', array('id' => $model->getId()));
 					return;
@@ -194,39 +167,30 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
  
 	public function deleteAction() {
 		if( $this->getRequest()->getParam('id') > 0 ) {
-		    
 			$slide_collection = Mage::getModel('responsivebannerslider/slide')->getCollection();
 			$current_groupid = $this->getRequest()->getParam('id');
 			$slide_collection->addFieldToFilter('group_names', array(array('finset' => $current_groupid)));
-			 
 			if(count($slide_collection->getData()) <= 0){
 				try {
 					$model = Mage::getModel('responsivebannerslider/responsivebannerslider');
-					 
-					$model->setId($this->getRequest()->getParam('id'))
-						->delete();
+					$model->setId($this->getRequest()->getParam('id'))->delete();
 					$dataid = $this->getRequest()->getParam('id');
-					
 					$store_model = Mage::getModel('responsivebannerslider/store');	
 					$store_data = $store_model->getCollection()
 							->addFieldToFilter('slidergroup_id',$dataid); 
 					$store_data->walk('delete');  
-					
 					$page_model = Mage::getModel('responsivebannerslider/page');
 					$page_data = $page_model->getCollection()
 							->addFieldToFilter('slidergroup_id',$dataid); 
 					$page_data->walk('delete');  
-					
 					$cate_model = Mage::getModel('responsivebannerslider/categories');
 					$cate_data = $cate_model->getCollection()
 							->addFieldToFilter('slidergroup_id',$dataid); 
 					$cate_data->walk('delete');  
-							
 					$product_model = Mage::getModel('responsivebannerslider/product');
 					$prd_data = $product_model->getCollection()
 							->addFieldToFilter('slidergroup_id',$dataid); 
 					$prd_data->walk('delete');  
-									
 					Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__('Group was successfully deleted'));
 					$this->_redirect('*/*/');
 				} catch (Exception $e) {
@@ -237,11 +201,10 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 				Mage::getSingleton('adminhtml/session')->addError("Please Remove Assigned slider form the selected group before delete group.");
 				$this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
 			}			
-				
 		}
 		$this->_redirect('*/*/');
 	}
-
+	
     public function massDeleteAction() {
 	    $webIds = $this->getRequest()->getParam('responsivebannerslider_group');
         if(!is_array($webIds)) {
@@ -250,47 +213,34 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
             try {
                 foreach ($webIds as $webId) {
                     $responsivebannerslider_group = Mage::getModel('responsivebannerslider/responsivebannerslider')->load($webId);
-                    
-					$slide_collection = Mage::getModel('responsivebannerslider/slide')->getCollection();
+        			$slide_collection = Mage::getModel('responsivebannerslider/slide')->getCollection();
 					$slide_collection->addFieldToFilter('group_names', array(array('finset' => $webId)));
-			 
 					if(count($slide_collection->getData()) <= 0){
-										
 						$responsivebannerslider_group->delete();
-										
 						$store_model = Mage::getModel('responsivebannerslider/store');	
 						$store_data = $store_model->getCollection()
 								->addFieldToFilter('slidergroup_id',$webId); 
 						$store_data->walk('delete');  
-					
 						$page_model = Mage::getModel('responsivebannerslider/page');
 						$page_data = $page_model->getCollection()
 								->addFieldToFilter('slidergroup_id',$webId); 
 						$page_data->walk('delete');  
-						
-								
 						$cate_model = Mage::getModel('responsivebannerslider/categories');
 						$cate_data = $cate_model->getCollection()
 								->addFieldToFilter('slidergroup_id',$webId); 
 						$cate_data->walk('delete');  
-								
 						$product_model = Mage::getModel('responsivebannerslider/product');
 						$prd_data = $product_model->getCollection()
 								->addFieldToFilter('slidergroup_id',$webId); 
 						$prd_data->walk('delete');  
-						
 						$groupname = $responsivebannerslider_group->getData('title');
 						Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('adminhtml')->__(''.$groupname.' Group was successfully deleted'));
 					}else{
-						
 						$groupname = $responsivebannerslider_group->getData('title');
 						Mage::getSingleton('adminhtml/session')->addError("Please Remove Assigned slider form the selected ".$groupname." group before delete ".$groupname." group.");
-						
 					}
-		
-                }
-				
-            } catch (Exception $e) {
+	            }
+	        } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
             }
         }
@@ -334,11 +284,9 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 		);
 	}
 	protected function _initcategory(){
-		
 		$categoryId  = $this->getRequest()->getParam('id');
 		$category    = Mage::getModel('responsivebannerslider/responsivebannerslider');
-	  
-			if ($categoryId) {
+	  		if ($categoryId) {
 			    $category->load($categoryId);
 			}
 			Mage::register('slidergroup_data', $category);
@@ -347,7 +295,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 	
 	public function get_menu_css($group_id){
 		$groupdata = Mage::getModel("responsivebannerslider/responsivebannerslider")->load($group_id);
-			
 		$max_width = $groupdata->getMaxWidth();
 		$content_background = $groupdata->getContentBackground();
 		$content_opacity = $groupdata->getContentOpacity();
@@ -356,7 +303,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 		$pagination_active_color = $groupdata->getPaginationActive();
 		$pagination_bar = $groupdata->getPaginationBar();
 		$thumbnail_size = $groupdata->getThumbnailSize();
-		
 		if ($max_width > 0) {
 			$max_width = $groupdata->getMaxWidth().'px';
 		} else {
@@ -375,7 +321,8 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 		return $css;
 	}
 	
-	
-	
-	
+	public function _isAllowed(){
+		return true;
+	}
+
 }

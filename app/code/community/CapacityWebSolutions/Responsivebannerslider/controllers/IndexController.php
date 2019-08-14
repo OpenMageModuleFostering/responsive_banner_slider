@@ -1,21 +1,14 @@
 <?php
-
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 
-
-class CapacityWebSolutions_Responsivebannerslider_IndexController extends Mage_Core_Controller_Front_Action
-{
-    public function indexAction()
-    {
+class CapacityWebSolutions_Responsivebannerslider_IndexController extends Mage_Core_Controller_Front_Action	{
+    public function indexAction() {
 		$this->loadLayout();     
 		$this->renderLayout();
     }
-	
-	
 }

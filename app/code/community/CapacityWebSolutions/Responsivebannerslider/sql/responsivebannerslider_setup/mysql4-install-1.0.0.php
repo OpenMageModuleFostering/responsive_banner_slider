@@ -1,11 +1,7 @@
 <?php
-
 $installer = $this;
-
 $installer->startSetup();
-
 $installer->run("
-
 CREATE TABLE IF NOT EXISTS {$this->getTable('responsivebannerslider_group')} (
   `slidergroup_id` int(11) unsigned NOT NULL auto_increment,
   `title` varchar(255) NOT NULL default '',
@@ -48,14 +44,12 @@ CREATE TABLE IF NOT EXISTS {$this->getTable('responsivebannerslider_page')} (
 		PRIMARY KEY (`page_id`)
 	) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci AUTO_INCREMENT=0;
 
-
 CREATE TABLE IF NOT EXISTS {$this->getTable('responsivebannerslider_category')} (
 		`category_id` int(11) unsigned NOT NULL auto_increment,
 		`slidergroup_id` smallint(6) NOT NULL,
 		`category_ids` smallint(6) NOT NULL,
 		PRIMARY KEY (`category_id`)
 	) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci AUTO_INCREMENT=0;
-
 
 CREATE TABLE IF NOT EXISTS {$this->getTable('responsivebannerslider_product')} (
 		`product_id` int(11) unsigned NOT NULL auto_increment,
@@ -70,7 +64,6 @@ CREATE TABLE IF NOT EXISTS {$this->getTable('responsivebannerslider_store')} (
 		`store_id` smallint(6) NOT NULL,
 		PRIMARY KEY (`store_ids`)
 	) ENGINE=MyISAM CHARACTER SET utf8 COLLATE utf8_general_ci AUTO_INCREMENT=0;
-
 
 CREATE TABLE IF NOT EXISTS  {$this->getTable('responsivebannerslider_slide')} (
   `slide_id` int(11) unsigned NOT NULL auto_increment,

@@ -5,6 +5,7 @@
 			<block type="responsivebannerslider/managejquery" name="managejquery" >
 				<action method="addJquery"/> 
 			</block> 
+			<action method="removeItem"><type>js</type><name>responsivebannerslider/noconflict.js</name></action>		
 		</reference>
 	</default>
 	<cms_page>

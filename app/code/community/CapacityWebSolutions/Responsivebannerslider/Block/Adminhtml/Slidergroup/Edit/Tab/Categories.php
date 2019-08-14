@@ -1,40 +1,32 @@
 <?php
 /***************************************************************************
-	@extension	: Responsive Banner Slider Extension.
-	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
-	( http://www.capacitywebsolutions.com )
-	@author		: Capacity Web Solutions Pvt. Ltd.
-	@support	: magento@capacitywebsolutions.com	
-***************************************************************************/
-
+ Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
+ Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
+ Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Support Email   : support@magebees.com 
+ ***************************************************************************/
 ?>
 <?php
 
-class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Edit_Tab_Categories extends Mage_Adminhtml_Block_Catalog_Category_Tree
-{
-	protected $_categoryIds = null;
-    protected $_selectedNodes = null;
-    public function __construct() {
-    parent::__construct();
-	
-	    $this->setTemplate('responsivebannerslider/category/edit/tab/categories.phtml');
-        $this->_withProductCount = false;
+class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Edit_Tab_Categories extends Mage_Adminhtml_Block_Catalog_Category_Tree {
+		protected $_categoryIds = null;
+		protected $_selectedNodes = null;
+		public function __construct() {
+		parent::__construct();
+		$this->setTemplate('responsivebannerslider/category/edit/tab/categories.phtml');
+		$this->_withProductCount = false;
     }
    
     public function getCategoryIds(){
-	
 		$data = Mage::registry('slidergroup_data');
 		$cate_model = Mage::getModel('responsivebannerslider/categories')->getCollection()->addFieldToFilter('slidergroup_id',array('eq' => $data->getData('slidergroup_id')));	
-
 		$_categoryIds = array();
-		
 			foreach($cate_model as $cate_data){
 				$_categoryIds[] = $cate_data->getData('category_ids');
 			}
 			$this->_categoryIds = $_categoryIds;	
         
         return $this->_categoryIds;
-     	
     }
 	
     public function getIdsString(){
@@ -138,7 +130,6 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Ed
         else {
             $collection->addFieldToFilter('entity_id', array('in'=>$categoryIds));
         }
-
         foreach ($collection as $item) {
             if ($rootId && !in_array($rootId, $item->getPathIds())) {
                 continue;
@@ -151,5 +142,4 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Ed
         }
         return $ids;
     }
-
 }
