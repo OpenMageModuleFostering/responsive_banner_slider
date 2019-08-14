@@ -9,7 +9,7 @@
 ***************************************************************************/
 
 
-class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SliderController extends Mage_Adminhtml_Controller_action
+class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SliderController extends Mage_Adminhtml_Controller_Action
 {
 
 	protected function _initAction() {
@@ -133,9 +133,8 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SliderController ext
 					return;
                 }	
 
-
 				$model->setData("group_names",$group_label);
-
+				
 				$model->save();
 					
 				Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('responsivebannerslider')->__('Slide was successfully saved'));

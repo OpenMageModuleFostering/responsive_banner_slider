@@ -36,10 +36,15 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup ex
 	
 	public function getGroupData() {
 		$groups = Mage::getModel('responsivebannerslider/responsivebannerslider')->getCollection()->setOrder('slidergroup_id', 'ASC');
+	    if(count($groups) > 0) {
 			foreach($groups as $group) {
 				$options[$group->getData('slidergroup_id')] = $group->getTitle();
 			}
+			return $options;
+		 }
+		else{
+			return false;
+		} 
 			
-		return $options;
    }
 }

@@ -125,6 +125,7 @@
 				$vimeo = '';
 				$sliedsdata = $this->getSlides ( $groups ['slidergroup_id'] );
 				foreach ( $sliedsdata as $slide ) {
+							
 					if ($slide->getDateEnabled () == 1) {
 						$fromdate = strtotime ( $slide->getFromDate () );
 						$todate = strtotime ( $slide->getToDate () );
@@ -164,6 +165,8 @@
 							}
 							$loading_img = $this->getSkinUrl ( 'css/responsivebannerslider/loading.gif' );
 							?>
+					
+					<?php if($slide->getData('hosted_url') != "" || $slide->getData('filename') != "") { ?>
 						<li><?php if($slide->getUrl()) {?><a
 					href="<?php echo $slide->getUrl(); ?>"
 					title="<?php echo $slide->getUrl(); ?>"
@@ -173,6 +176,9 @@
 						src="<?php if(!$this->getLazylaod()) { echo $imgsrc; }else { echo $loading_img; }  ?>"
 						alt="<?php echo $slide->getAltText(); ?>" /><?php if($slide->getUrl()) {?></a><?php } ?><?php if($slide->getDescription()) { ?><span
 					class="sliderdecs"><?php echo $slide->getDescription(); ?></span><?php } ?></li>
+					
+					<?php } ?>
+					
 						<?php } ?>
 					<?php if($slide->getDateEnabled() == 1) { } } ?>	<?php } ?>	
 				</ul>
@@ -234,13 +240,15 @@
 								}
 							}
 						?>
+						
+					<?php if($slide->getData('hosted_thumb') != "" || $slide->getData('filename') != "") { ?>
 							<li><?php if($slide->getUrl()) {?><a
 					href="<?php echo $slide->getUrl(); ?>"
 					title="<?php echo $slide->getUrl(); ?>"
 					target="<?php if($slide->getUrlTarget() == "new_window") { echo "_blank"; } ?>"><?php } ?><img
 						src="<?php echo $imgsrc;  ?>"
 						alt="<?php echo $slide->getAltText(); ?>" /><?php if($slide->getUrl()) {?></a><?php } ?></li>
-						<?php } ?>	
+					<?php } } ?>	
 					<?php } ?>	
 					<?php } ?>	
 				</ul>
@@ -296,9 +304,10 @@
 								}
 							}
 						?>
+						<?php if($slide->getData('hosted_thumb') != "" || $slide->getData('filename') != "") { ?>
 							<li><img src="<?php  echo $imgsrc; ?>"
 					alt="<?php echo $slide->getAltText(); ?>" /></li>
-						<?php } ?>	
+					<?php } } ?>	
 					<?php } ?>	
 					<?php } ?>	
 				</ul>
@@ -310,18 +319,18 @@
 <script type="text/javascript">
 		
 		function getGridSize() {
-			
-			return (window.innerWidth < 999) ? 3 :
-				(window.innerWidth < 999) ? 2 : 3;
+			return (window.innerWidth < 600) ? 2 :
+               (window.innerWidth < 900) ? 3 : 4;
 		}
 	
 		jQuery(window).load(function(){
-			
+		
 			<?php if($groups['slider_type'] != "basic") { ?>
 				jQuery('#carousel-<?php echo $groups['slidergroup_id']; ?>').flexslider({
 					animation: "slide",
 					itemWidth: <?php echo $groups['thumbnail_size'];  ?>,
 					itemMargin: 10,
+					
 					directionNav:  <?php if($groups['navigation_arrow'] == "never") { echo "false"; } else { echo "true"; } ?>,
 					<?php if($groups['slider_type']== "bas-caro") { ?>
 						slideshow: 	false,
@@ -343,9 +352,10 @@
 					showpage : "<?php echo $showpage; ?>",
 					pagestyle : "<?php echo $pagestyle; ?>",
 					pagepos : "<?php echo $pagepos; ?>",
-					minItems: getGridSize(), // use function to pull in initial value
-					maxItems: getGridSize() // use function to pull in initial value
+					
+					
 				});
+				
 				
 				jQuery(window).resize(function() {
 					var gridSize = getGridSize();
@@ -450,6 +460,7 @@
 									},
 								<?php } ?>	 
 														<?php } ?>
+
 							navarrow : "<?php echo $navarrow; ?>",
 							navstyle : "<?php echo $navstyle; ?>",
 							showpage : "<?php echo $showpage; ?>",
@@ -472,19 +483,19 @@
 							$f(player).addEvent('ready', ready);
 		
 							function addEvent(element, eventName, callback) {
-							
+								
 								(element.addEventListener) ? element.addEventListener(eventName, callback, false) : element.attachEvent(eventName, callback, false);
 							}
 	
 							function ready(player_id) {
 								var froogaloop = $f(player_id);
-	
+						
 								froogaloop.addEvent('play', function(data) {
-								
+							
 								  jQuery('#rwdSlider-<?php echo $groups['slidergroup_id']; ?>').flexslider("pause");
 								});
 	
-								froogaloop.addEvent('pause', function(data) {
+								froogaloop.addEvent('pause', function(data) { 
 								  jQuery('#rwdSlider-<?php echo $groups['slidergroup_id']; ?>').flexslider("play");
 								});
 							}

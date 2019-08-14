@@ -133,7 +133,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
 			$wysiwygConfig["widget_plugin_src"] = false;
 			$wysiwygConfig->setData("plugins",array());
 				
-			$style = 'height:20em; width:50em;';
+				$style = 'height:20em; width:50em;';
 			$config = $wysiwygConfig;
 			
 		
@@ -225,8 +225,14 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
 				}
 			}
 		}
-
- 
+		
+		$id = $this->getRequest()->getParam('id');
+		if($id == ''){
+			$dataimg['statuss'] = '1';
+			$form->setValues($dataimg);
+			$this->setForm($form);
+		}
+	 
         $this->setForm($form);
         $this->setChild('form_after', $this->getLayout()->createBlock('adminhtml/widget_form_element_dependence')
             ->addFieldMap($img_video->getHtmlId(), $img_video->getName())

@@ -301,9 +301,18 @@
           (slider.pagingCount > 1 && slider.pagingCount !== slider.controlNav.length) ? slider.update(pos, action) : methods.controlNav.active();
         }
       },
+	
       directionNav: {
-        setup: function() {
-          var directionNavScaffold = $('<ul class="'+namespace+'arw '+navstyle+'"><li><a class="' + namespace + 'prev  '+ navstyle +'" href="#">' + slider.vars.prevText + '</a></li><li><a class="' + namespace + 'next  '+ navstyle +'" href="#">' + slider.vars.nextText + '</a></li></ul>');
+
+        setup: function() { 	  
+		  if(slider.count == 1) {
+			var hidearw = "hideArw";
+		  }else {
+		  	var hidearw = "";
+		  }
+		  
+		
+          var directionNavScaffold = $('<ul class="'+namespace+'arw '+navstyle+' '+hidearw+'"><li><a class="' + namespace + 'prev  '+ navstyle +'" href="#">' + slider.vars.prevText + '</a></li><li><a class="' + namespace + 'next  '+ navstyle +'" href="#">' + slider.vars.nextText + '</a></li></ul>');
 
           // CONTROLSCONTAINER:
           if (slider.controlsContainer) {

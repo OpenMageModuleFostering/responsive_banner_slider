@@ -12,7 +12,7 @@
 <config>
     <modules>
         <CapacityWebSolutions_Responsivebannerslider>
-            <version>1.0.1</version>
+            <version>1.0.3</version>
         </CapacityWebSolutions_Responsivebannerslider>
     </modules>
      <frontend>
@@ -221,9 +221,7 @@
                 <class>CapacityWebSolutions_Responsivebannerslider_Helper</class>
             </responsivebannerslider>
         </helpers>
-		
-		
-		
+				
     </global>
 	
 	<default> 

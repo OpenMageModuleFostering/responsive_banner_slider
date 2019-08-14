@@ -7,7 +7,7 @@
 	@support	: magento@capacitywebsolutions.com	
 ***************************************************************************/
 
-class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupController extends Mage_Adminhtml_Controller_action {
+class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupController extends Mage_Adminhtml_Controller_Action {
 
 	protected function _initAction() {
 		$this->loadLayout()
@@ -116,13 +116,20 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 									->addFieldToFilter('slidergroup_id',$dataid); 
 					$page_data->walk('delete');  
 				}
-				foreach($model->getData('pages') as $pages)	{
-					$data_page['slidergroup_id'] = $model->getData('slidergroup_id');
-					$data_page['pages'] = $pages;
-					$page_model->setData($data_page);
-					$page_model->save();
-				} 
-		
+
+            	$cmspages = $model->getData('pages');
+				
+				if(isset($cmspages)) {
+					if(count($model->getData('pages') > 0)) {
+						foreach($model->getData('pages') as $pages)	{
+							$data_page['slidergroup_id'] = $model->getData('slidergroup_id');
+							$data_page['pages'] = $pages;
+							$page_model->setData($data_page);
+							$page_model->save();
+						} 
+					
+					}
+				}
 				$cate_model = Mage::getModel('responsivebannerslider/categories');
 				if($dataid != "") {			
 					$cate_data = $cate_model->getCollection()
