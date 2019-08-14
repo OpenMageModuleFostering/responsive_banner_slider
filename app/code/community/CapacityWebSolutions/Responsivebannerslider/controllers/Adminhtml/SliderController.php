@@ -70,7 +70,8 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SliderController ext
 					$uploader->setAllowRenameFiles(false);
 					$uploader->setFilesDispersion(false);
 					$path = Mage::getBaseDir('media') . DS . 'responsivebannerslider'. DS;
-					$path_parts = pathinfo($_FILES['filename']['name']);
+					$filenames = preg_replace('/[^a-zA-Z0-9._]/s', '', $_FILES['filename']['name']);
+					$path_parts = pathinfo($filenames);
 					$filename = $path_parts['filename'].'_'.time().'.'.$path_parts['extension'];
 					$uploader->save($path, $filename );
 					
@@ -106,9 +107,6 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SliderController ext
 			}	
 	  			
 			$model = Mage::getModel('responsivebannerslider/slide');		
-			
-		
-	
 			
 			$model->setData($data)
 				->setId($this->getRequest()->getParam('id'));
