@@ -10,10 +10,10 @@
 }
 
 .cwsSlider * { margin:0; padding:0; box-sizing:border-box; }
-.cwsSlider img { max-width:100%; }
+.cwsSlider img { max-width:100%; display:block; width:100%; }
 .cwsSlider a { text-decoration:none; cursor:pointer; outline:none; }
-.cwsSlider ul, .cwsSlider ul li,
-.cwsSlider ol, .cwsSlider ol li { list-style:none !important; }
+.std .cwsSlider ul, .std .cwsSlider ul li, .std .cwsSlider ol, .std .cwsSlider ol li,
+.cwsSlider ul, .cwsSlider ul li, .cwsSlider ol, .cwsSlider ol li { list-style:none !important; margin:0; padding:0; }
 .cwsSlider .slides { zoom:1; }
 
 /* Clearfix for the .slides element */

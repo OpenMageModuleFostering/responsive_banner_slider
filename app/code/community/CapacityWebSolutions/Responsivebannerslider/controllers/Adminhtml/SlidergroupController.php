@@ -348,6 +348,7 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 		$pagination_color = $groupdata->getPaginationColor();
 		$pagination_active_color = $groupdata->getPaginationActive();
 		$pagination_bar = $groupdata->getPaginationBar();
+		$thumbnail_size = $groupdata->getThumbnailSize();
 		
 		if ($max_width > 0) {
 			$max_width = $groupdata->getMaxWidth().'px';
@@ -363,6 +364,7 @@ class CapacityWebSolutions_Responsivebannerslider_Adminhtml_SlidergroupControlle
 		$css .= '#bnrSlider-'.$group_id.' .cws-pager a.cws-active { background-color:#'.$pagination_active_color.'; }';
 		$css .= '#bnrSlider-'.$group_id.' .cws-pager.cir-bar { background-color:#'.$pagination_bar.'; }';
 		$css .= '#bnrSlider-'.$group_id.' .cws-pager.squ-bar { background-color:#'.$pagination_bar.'; }';
+		$css .= '@media (min-width:999px){#carousel-'.$group_id.' ul.slides li { width:'.$thumbnail_size.'px !important;}}';
 		return $css;
 	}
 	

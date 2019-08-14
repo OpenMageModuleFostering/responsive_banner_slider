@@ -153,13 +153,13 @@
 						webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></li>
 					<?php } else { ?>
 					<?php
-							if ($slide->getData ( 'filename' )) {
-								$imgsrc = Mage::getBaseUrl ( 'media' ) . "responsivebannerslider/" . $slide->getData ( 'filename' );
-							} else {
-								if ($slide->getData ( 'hosted_thumb' )) {
-									$imgsrc = $slide->getHostedThumb ();
-								} else {
+							if($slide->getData ( 'img_hosting' )) {
+								if ($slide->getData ( 'hosted_url' )) {
 									$imgsrc = $slide->getHostedUrl ();
+								}
+							}else{
+								if ($slide->getData ( 'filename' )) {
+									$imgsrc = Mage::getBaseUrl ( 'media' ) . "responsivebannerslider/" . $slide->getData ( 'filename' );
 								}
 							}
 							$loading_img = $this->getSkinUrl ( 'css/responsivebannerslider/loading.gif' );
@@ -224,16 +224,16 @@
 						alt="<?php echo $this->escapeHtml($slide->getTitles()) ?>" /></a></li>
 					<?php }else{ ?>
 						<?php
-							if ($slide->getData ( 'filename' )) {
-								$imgsrc = Mage::getBaseUrl ( 'media' ) . "responsivebannerslider/thumbnails/" . $slide->getData ( 'filename' );
-							} else {
+							if($slide->getData ( 'img_hosting' )) {
 								if ($slide->getData ( 'hosted_thumb' )) {
 									$imgsrc = $slide->getHostedThumb ();
-								} else {
-									$imgsrc = $slide->getHostedUrl ();
+								} 
+							}else{
+								if ($slide->getData ( 'filename' )) {
+									$imgsrc = Mage::getBaseUrl ( 'media' ) . "responsivebannerslider/thumbnails/" . $slide->getData ( 'filename' );
 								}
 							}
-							?>
+						?>
 							<li><?php if($slide->getUrl()) {?><a
 					href="<?php echo $slide->getUrl(); ?>"
 					title="<?php echo $slide->getUrl(); ?>"
@@ -286,16 +286,16 @@
 					alt="<?php echo $this->escapeHtml($slide->getTitles()) ?>" /></li>
 					<?php } else { ?>
 						<?php
-							if ($slide->getData ( 'filename' )) {
-								$imgsrc = Mage::getBaseUrl ( 'media' ) . "responsivebannerslider/thumbnails/" . $slide->getData ( 'filename' );
-							} else {
+							if($slide->getData ( 'img_hosting' )) {
 								if ($slide->getData ( 'hosted_thumb' )) {
 									$imgsrc = $slide->getHostedThumb ();
-								} else {
-									$imgsrc = $slide->getHostedUrl ();
+								}
+							}else{
+								if ($slide->getData ( 'filename' )) {
+									$imgsrc = Mage::getBaseUrl ( 'media' ) . "responsivebannerslider/thumbnails/" . $slide->getData ( 'filename' );
 								}
 							}
-							?>
+						?>
 							<li><img src="<?php  echo $imgsrc; ?>"
 					alt="<?php echo $slide->getAltText(); ?>" /></li>
 						<?php } ?>	
@@ -311,8 +311,8 @@
 		
 		function getGridSize() {
 			
-			return (window.innerWidth < 999) ? 4 :
-				(window.innerWidth < 999) ? 2 : 4;
+			return (window.innerWidth < 999) ? 3 :
+				(window.innerWidth < 999) ? 2 : 3;
 		}
 	
 		jQuery(window).load(function(){
