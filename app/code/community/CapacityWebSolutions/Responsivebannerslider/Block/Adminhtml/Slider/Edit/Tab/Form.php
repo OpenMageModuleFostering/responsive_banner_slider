@@ -2,7 +2,7 @@
 /***************************************************************************
  Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
  Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
- Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Copyright    : Copyright (c) 2016 MageBees, http://www.magebees.com
  Support Email   : support@magebees.com 
  ***************************************************************************/
 
@@ -56,12 +56,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
 			'name'      => 'img_hosting',
 			'values'    => Mage::getSingleton('adminhtml/system_config_source_yesno')->toOptionArray(),
 		));
-		$video_height = $fieldset->addField('video_height', 'text', array(
-		    'label'     => Mage::helper('responsivebannerslider')->__('Height of Video'),
-			'name'      => 'video_height',
-			'class'     => 'validate-number',
-			'required'  => true,
-	    ));
+		
 		$video_id = $fieldset->addField('video_id', 'text', array(
 		    'label'     => Mage::helper('responsivebannerslider')->__('Video ID'),
 			'name'      => 'video_id',
@@ -203,7 +198,6 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
             ->addFieldMap($url->getHtmlId(), $url->getName())
             ->addFieldMap($url_target->getHtmlId(), $url_target->getName())
             ->addFieldMap($description->getHtmlId(), $description->getName())
-            ->addFieldMap($video_height->getHtmlId(), $video_height->getName())
 			->addFieldMap($to_date->getHtmlId(), $to_date->getName())
 			->addFieldMap($from_date->getHtmlId(), $from_date->getName())
 			->addFieldMap($date_enabled->getHtmlId(), $date_enabled->getName())
@@ -219,11 +213,6 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slider_Edit_Ta
             )
             ->addFieldDependence(
                 $video_id->getName(),
-                $img_video->getName(),
-                array('youtube','vimeo')
-            )
-			->addFieldDependence(
-                $video_height->getName(),
                 $img_video->getName(),
                 array('youtube','vimeo')
             )

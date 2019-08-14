@@ -71,7 +71,6 @@ CREATE TABLE IF NOT EXISTS  {$this->getTable('responsivebannerslider_slide')} (
   `titles` varchar(255) NOT NULL default '',
   `img_video` varchar(32) NOT NULL default '',
   `img_hosting` tinyint(1) NOT NULL default '0',
-  `video_height` varchar(32) NOT NULL default '',
   `video_id` varchar(255) NOT NULL default '',
   `hosted_url` varchar(512) NOT NULL default '',
   `hosted_thumb` varchar(512) NOT NULL default '',

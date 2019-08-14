@@ -2,7 +2,7 @@
 /***************************************************************************
  Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
  Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
- Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Copyright    : Copyright (c) 2016 MageBees, http://www.magebees.com
  Support Email   : support@magebees.com 
  ***************************************************************************/
 ?>
@@ -132,22 +132,19 @@
 						$nowdate = strtotime ( $this->formatTime ( now (), Mage_Core_Model_Locale::FORMAT_TYPE_SHORT, true ) );
 					}
 					$videoid = $groups ['slidergroup_id'];
-					$video_height = $slide->getVideoHeight ();
 					?>
 					<?php if($fromdate <= $nowdate && $todate >= $nowdate ) { ?>	
 					<?php if($slide->getImgVideo() == "vimeo") { ?>
 						<?php $vimeo = $vimeo + 1; ?>
-						<li class="video"><iframe id="player_<?php echo $videoid; ?>"
-						src="http://player.vimeo.com/video/<?php echo $slide->getVideoId(); ?>?api=1&amp;player_id=player_<?php echo $videoid; ?>"
-						width="100%" height="<?php echo $video_height; ?>" frameborder="0"
-						webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></li>
+						<li class="video"><div class="videoWrapper">
+                        	<iframe id="player_<?php echo $videoid; ?>" src="http://player.vimeo.com/video/<?php echo $slide->getVideoId(); ?>?api=1&amp;player_id=player_<?php echo $videoid; ?>" width="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div></li>
 					<?php } elseif($slide->getImgVideo() == "youtube") { ?>
 						<?php $youtube = $youtube + 1; ?>
-						<li class="video"><iframe class="youtube"
-						id="youtube_<?php echo $videoid; ?>"
-						src="http://www.youtube.com/embed/<?php echo $slide->getVideoId(); ?>?enablejsapi=1&amp;wmode=opaque&amp;playerapiid=youtube_<?php echo $videoid; ?>"
-						width="100%" height="<?php echo $video_height; ?>" frameborder="0"
-						webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></li>
+						<li class="video">
+                        	<div class="videoWrapper">
+                        	<iframe class="youtube" id="youtube_<?php echo $videoid; ?>" src="http://www.youtube.com/embed/<?php echo $slide->getVideoId(); ?>?enablejsapi=1&amp;wmode=opaque&amp;playerapiid=youtube_<?php echo $videoid; ?>" width="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+                        	</div>
+                        </li>
 					<?php } else { ?>
 					<?php
 							if($slide->getData ( 'img_hosting' )) {
@@ -394,6 +391,11 @@
 							slideshowSpeed: <?php echo $groups['slide_duration'] ?>,
 							randomize: 	<?php if($groups['random_order']==0 || $groups['slider_type'] == "bas-caro") { echo 'false'; } else { echo 'true'; } ?>,
 							smoothHeight: <?php if($groups['smooth_height']==0) { echo 'false'; } else { echo 'true'; } ?>,
+							
+							<?php if($vimeo || $youtube) { ?>
+								video: 	true,
+								//smoothHeight: <?php if(!$helper->getLazylaod()) { echo 'true'; } else { echo 'false'; }  ?>,
+							<?php } ?>
 							
 							<?php if($vimeo || $youtube) { ?>
 								video: 	true,

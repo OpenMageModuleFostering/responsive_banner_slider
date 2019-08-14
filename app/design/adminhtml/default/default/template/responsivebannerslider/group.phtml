@@ -2,12 +2,12 @@
 /***************************************************************************
  Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
  Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
- Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Copyright    : Copyright (c) 2016 MageBees, http://www.magebees.com
  Support Email   : support@magebees.com 
  ***************************************************************************/
 ?> 
 <?php if(count($this->getGroupData()) > 1) { ?>
-<?php $url = Mage::helper('adminhtml')->getUrl('responsivebannerslider/adminhtml_slider/index'); ?>
+<?php $url = Mage::helper('adminhtml')->getUrl('adminhtml/slider/index'); ?>
 <?php $group_id = $this->getRequest()->getParam('group'); ?>
 <p class="switcher"><label for="store_switcher"><?php echo $this->__('Choose Slider Group:') ?></label>
 	<select name="store_switcher" id="store_switcher" onchange="return switchStore(this);">

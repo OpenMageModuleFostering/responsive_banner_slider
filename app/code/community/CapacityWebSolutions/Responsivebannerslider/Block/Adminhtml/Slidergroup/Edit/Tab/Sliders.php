@@ -2,7 +2,7 @@
 /***************************************************************************
  Extension Name  : Magento Responsive Banner Slider with Lazy Load Extension
  Extension URL   : http://www.magebees.com/magento-responsive-banner-slider-with-lazy-load-extension.html
- Copyright    : Copyright (c) 2015 MageBees, http://www.magebees.com
+ Copyright    : Copyright (c) 2016 MageBees, http://www.magebees.com
  Support Email   : support@magebees.com 
  ***************************************************************************/
 
@@ -13,6 +13,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Ed
 		$this->setDefaultSort('slide_id');
 		$this->setDefaultDir('asc');
 		$this->setSaveParametersInSession(true);
+		$this->setUseAjax(false);
 	}
 	protected function _prepareCollection() {
 		$slide_collection = Mage::getModel('responsivebannerslider/slide')->getCollection();
@@ -27,11 +28,13 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Ed
 			'align'		=> 'left',
 			'width'		=> '60px',
 			'index'		=> 'slide_id',
+			'filter' => false,
 		));
 	 	$this->addColumn('titles', array(
 			'header'	=> $this->__('Title'),
 			'align'		=> 'left',
 			'index'		=> 'titles',
+			'filter' => false,
 		));
 		$this->addColumn('statuss', array(
 			'header'	=> $this->__('Enabled'),
@@ -42,6 +45,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Ed
 				1 => $this->__('Enabled'),
 				0 => $this->__('Disabled'),
 			),
+			'filter' => false,
 		));
  		return parent::_prepareColumns();
 	}
@@ -49,6 +53,7 @@ class CapacityWebSolutions_Responsivebannerslider_Block_Adminhtml_Slidergroup_Ed
 		return Mage::registry('slidergroup_data') ? Mage::registry('slidergroup_data')->getId() : 0;
 	}
 	public function getRowUrl($row) {
-    	return $this->getUrl('*/adminhtml_slider/edit', array('id' => $row->getId()));
+    	return $this->getUrl('adminhtml/slider/edit', array('id' => $row->getId()));
 	}
+	
 }

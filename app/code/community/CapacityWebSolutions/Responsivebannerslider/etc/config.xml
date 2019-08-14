@@ -2,7 +2,7 @@
 <config>
     <modules>
         <CapacityWebSolutions_Responsivebannerslider>
-            <version>1.0.4</version>
+            <version>1.0.5</version>
         </CapacityWebSolutions_Responsivebannerslider>
     </modules>
      <frontend>
@@ -80,11 +80,9 @@
 									<children>
 										<group module="responsivebannerslider">
 											<title>Manage Groups</title>
-											<action>responsivebannerslider/adminhtml_slidergroup</action>
 										</group>
 										<slides module="responsivebannerslider">
 											<title>Manage Slides</title>
-											<action>responsivebannerslider/adminhtml_slider</action>
 										</slides>
 									</children>
 								</responsivebannerslider>
