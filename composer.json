@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Responsive_Banner_Slider",
+    "type": "magento-module",
+    "license": "OSL-3.0",
+    "homepage": "",
+    "description": "show responsive banner slider on CMS pages, Category pages, Product View Pages based on selection you did from admin side.",
+    "authors": [
+    {
+        "name": "Capacity Web Solutions",
+        "email": "magento@capacitywebsolutions.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<!--
+/***************************************************************************
+	@extension	: Responsive Banner Slider Extension.
+	@copyright	: Copyright (c) 2015 Capacity Web Solutions.
+	( http://www.capacitywebsolutions.com )
+	@author		: Capacity Web Solutions Pvt. Ltd.
+	@support	: magento@capacitywebsolutions.com	
+***************************************************************************/
+-->
+
+<config>
+    <modules>
+        <CapacityWebSolutions_Responsivebannerslider>
+            <version>1.0.0</version>
+        </CapacityWebSolutions_Responsivebannerslider>
+    </modules>
+     <frontend>
+        <routers>
+            <responsivebannerslider>
+                <use>standard</use>
+                <args>
+                    <module>CapacityWebSolutions_Responsivebannerslider</module>
+                    <frontName>responsivebannerslider</frontName>
+                </args>
+            </responsivebannerslider>
+        </routers>
+        <layout>
+            <updates>
+                <responsivebannerslider>
+                    <file>responsivebannerslider.xml</file>
+                </responsivebannerslider>
+            </updates>
+        </layout>
+		
+		 <events>
+            <core_block_abstract_prepare_layout_before>
+                <observers>
+                    <capacityWebSolutions_responsivebannerslider_prepare_layout_before>
+                        <class>responsivebannerslider/observer</class>
+                        <method>prepareLayoutBefore</method>
+                    </capacityWebSolutions_responsivebannerslider_prepare_layout_before>
+                </observers>
+            </core_block_abstract_prepare_layout_before>
+        </events>
+		
+    </frontend> 
+    <admin>
+        <routers>
+			<responsivebannerslider>
+				<use>admin</use>
+				<args>
+					<module>CapacityWebSolutions_Responsivebannerslider</module>
+					<frontName>responsivebannerslider</frontName>
+				</args>
+			</responsivebannerslider>
+        </routers>
+    </admin>
+	
+    <adminhtml>
+		<menu>
+			<cws module="responsivebannerslider">
+			<title>CWS Extensions</title>
+			<sort_order>70</sort_order> 
+				<children>
+					<responsivebannerslider module="responsivebannerslider">
+						<title>Responsive Banner Slider</title>
+						<sort_order>70</sort_order>     
+					
+						<children>
+							<group module="responsivebannerslider">
+								<title>Manage Groups</title>
+								<sort_order>0</sort_order>
+								<action>responsivebannerslider/adminhtml_slidergroup</action>
+								
+							</group>
+							<slides module="responsivebannerslider">
+								<title>Manage Slides</title>
+								<sort_order>10</sort_order>
+								<action>responsivebannerslider/adminhtml_slider</action>
+							</slides>
+							
+							<settings module="responsivebannerslider">
+								<title>Settings</title>
+								<sort_order>20</sort_order>
+								<action>adminhtml/system_config/edit/section/responsivebannerslider</action> 
+							</settings>
+							
+						</children>
+					</responsivebannerslider>
+				</children>
+			</cws>
+		</menu>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<cws module="responsivebannerslider">
+						<title>CWS Extensions</title>
+							<children>
+								<responsivebannerslider module="responsivebannerslider">
+									<title>Responsive Banner Slider</title>
+									<children>
+										<group module="responsivebannerslider">
+											<title>Manage Groups</title>
+											<action>responsivebannerslider/adminhtml_slidergroup</action>
+										</group>
+										<slides module="responsivebannerslider">
+											<title>Manage Slides</title>
+											<action>responsivebannerslider/adminhtml_slider</action>
+										</slides>
+									</children>
+								</responsivebannerslider>
+							</children>
+						</cws>
+					</children>
+					
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<responsivebannerslider>
+					<file>responsivebannerslider.xml</file>
+				</responsivebannerslider>
+			</updates>
+		</layout>
+		
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<responsivebannerslider>
+											<title>Responsivebannerslider</title>
+										</responsivebannerslider>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<events>      
+			<admin_system_config_changed_section_responsivebannerslider>
+                <observers>
+                    <responsivebannerslider>
+                        <type>singleton</type>
+                        <class>responsivebannerslider/observer</class>
+                        <method>adminSystemConfigChangedSection</method>
+                    </responsivebannerslider>
+                </observers>
+            </admin_system_config_changed_section_responsivebannerslider>
+        </events>
+    </adminhtml>   
+    <global>
+	
+        <models>
+            <responsivebannerslider>
+                <class>CapacityWebSolutions_Responsivebannerslider_Model</class>
+                <resourceModel>responsivebannerslider_mysql4</resourceModel>
+            </responsivebannerslider>
+            <responsivebannerslider_mysql4>
+                <class>CapacityWebSolutions_Responsivebannerslider_Model_Mysql4</class>
+                <entities>
+					<responsivebannerslider>
+                        <table>responsivebannerslider_group</table>
+                    </responsivebannerslider>
+					<slide>
+                        <table>responsivebannerslider_slide</table>
+                    </slide>
+					<page>
+                        <table>responsivebannerslider_page</table>
+                    </page>
+					<categories>
+                        <table>responsivebannerslider_category</table>
+                    </categories>
+					<product>
+                        <table>responsivebannerslider_product</table>
+                    </product>
+                    <store>
+                        <table>responsivebannerslider_store</table>
+                    </store>
+ 		        </entities>
+            </responsivebannerslider_mysql4>
+	    </models>
+        <resources>
+            <responsivebannerslider_setup>
+                <setup>
+                    <module>CapacityWebSolutions_Responsivebannerslider</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </responsivebannerslider_setup>
+            <responsivebannerslider_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </responsivebannerslider_write>
+            <responsivebannerslider_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </responsivebannerslider_read>
+        </resources>
+        <blocks>
+            <responsivebannerslider>
+                <class>CapacityWebSolutions_Responsivebannerslider_Block</class>
+            </responsivebannerslider>
+        </blocks>
+        <helpers>
+            <responsivebannerslider>
+                <class>CapacityWebSolutions_Responsivebannerslider_Helper</class>
+            </responsivebannerslider>
+        </helpers>
+		
+		
+		
+    </global>
+	
+	<default> 
+		<responsivebannerslider>
+			<general>  
+				<enabled>1</enabled>		
+				<jquery>1</jquery>
+				<thumbnail_width>200</thumbnail_width>
+				<cms_page>1</cms_page>
+				<category_page>1</category_page>
+				<product_page>1</product_page>
+			</general>      
+		</responsivebannerslider>
+	</default>	
+		
+</config>
