@@ -1,3 +1,5 @@
+
+
 ## Original Package Description
 
 show responsive banner slider on CMS pages, Category pages, Product View Pages based on selection you did from admin side.
